@@ -1,4 +1,6 @@
-def n_queens_easy(n):
+# Рекурсивное решение
+
+def recursive_solution(n):
     if n <= 0:
         print("Введите неотрицательное число")
         return 0
@@ -26,5 +28,5 @@ def n_queens_easy(n):
     return count
 
 size = int(input("Введите число N: "))
-result = n_queens_easy(size)
+result = recursive_solution(size)
 print(f"Количество решений: {result}")

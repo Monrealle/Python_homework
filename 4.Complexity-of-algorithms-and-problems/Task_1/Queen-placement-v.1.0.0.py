@@ -1,6 +1,8 @@
 import itertools
 
-def n_queens_brute_force_simple(n):
+# Переборное решение
+
+def enumeration_solution(n):
     if n < 0:
         print("Введите неотрицательное число")
         return 0
@@ -19,5 +21,5 @@ def n_queens_brute_force_simple(n):
     return count
 
 size = int(input("Введите число N: "))
-result = n_queens_brute_force_simple(size)
+result = enumeration_solution(size)
 print(f"Количество решений: {result}")
