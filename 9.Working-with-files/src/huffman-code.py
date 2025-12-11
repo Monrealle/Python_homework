@@ -2,8 +2,10 @@ import heapq
 from collections import Counter
 import struct
 
+
 class Node:
     """Узел дерева Хаффмана"""
+
     def __init__(self, freq, char=None):
         self.freq = freq
         self.char = char
@@ -13,6 +15,7 @@ class Node:
     def __lt__(self, other):
 
         return self.freq < other.freq
+
 
 def encode(msg: str) -> tuple[str, dict[str, str]]:
     """Кодирует строку методом Хаффмана"""
@@ -55,6 +58,7 @@ def encode(msg: str) -> tuple[str, dict[str, str]]:
 
     return encoded, huffman_codes
 
+
 def decode(encoded: str, table: dict[str, str]) -> str:
     """Декодирует строку по таблице Хаффмана"""
     if not encoded:
@@ -73,6 +77,7 @@ def decode(encoded: str, table: dict[str, str]) -> str:
 
     return ''.join(result)
 
+
 def bits_to_bytes(bits: str) -> bytes:
     """Превращает строку бит '0101' в байты b'\\x05'"""
     if not bits:
@@ -82,15 +87,17 @@ def bits_to_bytes(bits: str) -> bytes:
 
     byte_array = bytearray()
     for i in range(0, len(bits), 8):
-        byte = int(bits[i:i+8], 2)
+        byte = int(bits[i:i + 8], 2)
         byte_array.append(byte)
 
     return bytes(byte_array)
+
 
 def bytes_to_bits(byte_data: bytes, num_bits: int) -> str:
     """Превращает байты обратно в строку бит"""
     bits = ''.join(f'{byte:08b}' for byte in byte_data)
     return bits[:num_bits]
+
 
 def encode_file(input_path: str, output_path: str):
     """Сжимает файл"""
@@ -117,6 +124,7 @@ def encode_file(input_path: str, output_path: str):
         f.write(table_bytes)
         f.write(bits_to_bytes(encoded_bits))
 
+
 def decode_file(input_path: str, output_path: str):
     """Восстанавливает файл"""
     with open(input_path, 'rb') as f:
@@ -138,11 +146,11 @@ def decode_file(input_path: str, output_path: str):
         encoded_bytes = f.read(bytes_needed)
         encoded_bits = bytes_to_bits(encoded_bytes, num_bits)
 
-
     decoded_text = decode(encoded_bits, table)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(decoded_text)
+
 
 if __name__ == "__main__":
     text = "hello world"
@@ -167,5 +175,5 @@ if __name__ == "__main__":
     print("Файл восстановлен: compressed.bin → restored.txt")
 
     with open('test.txt', 'r', encoding='utf-8') as f1, \
-         open('restored.txt', 'r', encoding='utf-8') as f2:
+            open('restored.txt', 'r', encoding='utf-8') as f2:
         print(f"Файлы одинаковы: {f1.read() == f2.read()}")
